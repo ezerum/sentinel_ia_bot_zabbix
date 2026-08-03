@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  sentinel-ops:
+    build: ./ops_orchestrator
+    container_name: sentinel_ops
+    restart: always
+    environment:
+      OPS_API_KEY: ${OPS_API_KEY}
+      OPS_ALLOWED_ACTIONS: ${OPS_ALLOWED_ACTIONS}
+      OPS_REQUIRE_ACTIVE_PROBLEM: ${OPS_REQUIRE_ACTIVE_PROBLEM}
+      OPS_MIN_SEVERITY: ${OPS_MIN_SEVERITY}
+      OPS_PROBLEM_LOOKBACK_MIN: ${OPS_PROBLEM_LOOKBACK_MIN}
+      OPS_ZABBIX_URL: ${OPS_ZABBIX_URL}
+      OPS_ZABBIX_API_TOKEN: ${OPS_ZABBIX_API_TOKEN}
+      OPS_AUDIT_PATH: /logs/ops_audit.jsonl
+    volumes:
+      - ./ops_logs:/logs
+    networks:
+      - sentinel_net
+    expose:
+      - "9000"
+
+  sentinel-bot:
+    build: .
+    container_name: sentinel_bot
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - sentinel-ops
+    networks:
+      - sentinel_net
+
+networks:
+  sentinel_net:
+    driver: bridge      

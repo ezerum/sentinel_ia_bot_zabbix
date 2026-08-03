@@ -1,0 +1,5 @@
+.env
+.vscode/
+CHATIA_bot/
+logs/
+ops_logs/
