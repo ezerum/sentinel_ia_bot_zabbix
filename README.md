@@ -87,8 +87,8 @@ Solo los `chat_id` incluidos en `ALLOWED_CHAT_IDS` pueden interactuar con el bot
 ## Instalación y uso
 
 ```bash
-git clone https://github.com/ezerum/sentinel_ia_bot.git
-cd sentinel_ia_bot
+git clone https://github.com/ezerum/sentinel_ia_bot_zabbix.git
+cd sentinel_ia_bot_zabbix
 cp .env.example .env  
 docker compose up -d --build
 ```
